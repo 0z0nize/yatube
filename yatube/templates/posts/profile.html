@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+{% block tab_title %}
+  Профайл пользователя {{ author.get_full_name }}
+{% endblock %}
+{% block title %}
+  <h1>Все посты пользователя {{ author.get_full_name }}</h1>
+{% endblock %}
+{% block content %}
+  <div class="mb-5">
+    <h3>Всего постов: {{ author.posts.count }}</h3>
+    {% if user != author %}
+      {% include 'includes/folow_button.html' %}
+    {% endif %}
+  </div>
+  {% for post in page_obj %}
+    <p>{% include 'includes/post_card.html' %}</p>
+    {% if not forloop.last %}<hr>{% endif %}
+  {% endfor %}
+  {% include 'includes/paginator.html' %}
+{% endblock %}

@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{% endblock %}
+{% block tab_title %}
+  Об авторе
+{% endblock %}
+{% block head_author %}
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,400italic,300italic,300,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>  
+  <link rel="stylesheet" href="{% static 'author/css/font-awesome.css' %}">
+  <link id="theme-style" rel="stylesheet" href="{% static 'author/styles_author.css' %}">
+{% endblock %}
+{% block content %}
+  <div class="wrapper">
+
+    <div class="sidebar-wrapper">
+      <div class="profile-container">
+        <img class="profile" src="{% static 'img/avatar.png'%}" width="180" height="180" alt="" />
+        <h1 class="name">Владислав Шкаровский</h1>
+        <h3 class="tagline">Backend-разработчик Python/Django</h3>
+      </div>
+      <div class="contact-container container-block">
+        <ul class="list-unstyled contact-list">
+          <li class="email"><i class="fa fa-envelope"></i><a href="mailto: vladislav.shkarovskiy@yandex.ru">vladislav.shkarovskiy</a></li>
+          <li class="phone"><i class="fa fa-phone"></i><a href="tel:+79817770133">+79817770133</a></li>
+          <li class="website"><i class="fa fa-globe"></i><a href="{% url 'about:author' %}" target="_blank">Мой сайт</a></li>
+          <li class="linkedin"><i class="fa fa-linkedin"></i><a href="https://www.linkedin.com/in/vladislav-shkarovskiy-65a07212a/" target="_blank">linkedin.com</a></li>
+          <li class="github"><i class="fa fa-github"></i><a href="https://github.com/0z0nize" target="_blank">github.com/0z0nize</a></li>
+          <li class="twitter"><i class="fa fa-twitter"></i><a href="https://twitter.com/VladShkarovskiy" target="_blank">@VladShkarovskiy</a></li>
+          <li class="instagram"><i class="fa fa-instagram"></i><a href="https://www.instagram.com/vlad_ok_medok/" target="_blank">@vlad_ok_medok</a></li>
+        </ul>
+        </div>
+      <div class="education-container container-block">
+        <h2 class="container-block-title">Образование</h2>
+        <div class="item">
+          <h4 class="degree">Режиссер шоу-программ</h4>
+          <h6 class="meta">СПбГУКИ</h6>
+          <div class="time">2004 - 2009</div>
+        </div>
+        <div class="item">
+          <h4 class="degree">CS50's Introduction to Computer Science</h4>
+          <h6 class="meta">edX Harvard</h6>
+          <div class="time">2022 - ...</div>
+        </div>
+          <div class="item">
+          <h4 class="degree">Phython-разработчик</h4>
+          <h6 class="meta">Яндекс.Практикум</h6>
+          <div class="time">2022 - ...</div>
+        </div>
+      </div>
+      <div class="languages-container container-block">
+        <h2 class="container-block-title">Владение языками</h2>
+        <ul class="list-unstyled interests-list">
+          <li>Русский <span class="lang-desc">(Родной)</span></li>
+           <li>Английский <span class="lang-desc">(Профессиональный)</span></li>
+        </ul>
+      </div>        
+      <div class="interests-container container-block">
+        <h2 class="container-block-title">Увлечения</h2>
+        <ul class="list-unstyled interests-list">
+          <li>Виниловые пластинки</li>
+          <li>Марки</li>
+          <li>Сноуборд</li>
+          <li>Чтение</li>
+        </ul>
+      </div>       
+    </div>
+
+    <div class="main-wrapper">
+      <section class="section summary-section">
+        <h2 class="section-title"><i class="fa fa-user"></i>Обо мне</h2>
+        <div class="summary">
+          <p>Привет! Меня зовут Владислав Шкаровский.</p>
+          <p>Живу в Санкт-Петербурге, на мой взгляд, это один из самых красивых городов.
+          <p>Я увлекаюсь собиранием виниловых пластинок и мне нравится слушать музыку на них - мне нравится красивое оформление альбомов и необычне издания. Особенно меня привлекают пластинки на цветном виниле или пикчер-диски.</p>
+          <p>В зимнее время года я езжу кататься на сноуборде, и с каждым годом мои навыки улучшаются.</p>
+          <p>Также я собираю почтовые марки - это очень позновательное занятие: можно очень многое узнать из содержания марки. Моя коллекция посвещена странам организаторам чемпионата мира по футболу, для каждого турнира страна организатор выпускает серию марок - такие серии я и коллекционирую.</p>
+          <p>В свободное время или когда мне хочется отвлечься, я читаю книги - для этого у меня есть электронная книга. Если цифровая версия книги не доступна, то я преобретаю бумажную (среди компьютерной литературы таких очень много).</p>
+          <p>Сейчас я прохожу обучение в Яндекс.Практикум. Порой бывает не просто справлятся с заданиями, но я не сдаюсь и с удовольствием решаю задания на курсе. Каждое выполненное задание мотивирует меня продолжать обучение до победного конца. Я поставил перед собой цель заняться профессионально программированием и с удовольствием иду к ней.</p>
+        </div>
+      </section> 
+             
+      <section class="section experiences-section">
+        <h2 class="section-title"><i class="fa fa-briefcase"></i>Опыт</h2>  
+        <div class="item">
+          <div class="meta">
+          <div class="upper-row">
+            <h3 class="job-title">Помощник режиссёра</h3>
+            <div class="time">2009 - 2012</div>
+          </div>
+          <div class="company">Центр Фестивальных Программ "Петрофест"</div>
+          <div class="details">
+            <p>Организация и проведение массовых мероприятий, городского масштаба.</p>
+            <p>Среди интересных проектов:</p>
+            <ul>
+              <li>Новогодняя ночь на Стрелке Васильевского острова</li>
+              <li>Празднование 9 мая на Дворцовой площади</li>
+              <li>Приезд Деда Мороза в Санкт-Петербург и карнавальное шествие по Невскому проспекту</li>
+              <li>Церемония открытия фонтанов в Петергофе</li>
+              <li>Новогодняя проекция на здание Главного штаба на Дворцовой площади</li>
+            <ul/>
+          </div>
+        </div> 
+        <div class="item">
+          <div class="meta">
+          <div class="upper-row">
+            <h3 class="job-title">Инсталятор</h3>
+            <div class="time">2012 - 2022</div>
+          </div>
+          <div class="company">Фриланс</div>
+          <div class="details">
+            <p>Монтаж и пусконаладка системм контроля доступа и видеонаблюдения.</p>
+            <p>Администрирование сетей.</p>
+            <p>Настройка системм спутникового телевидения и IPTV.</p>
+            <p>Инсталяция цифрофых и аналоговых музыкальных системм, создание музыкальный библиотек и удаленного доступа к ним.</p>
+          </div>
+        </div>            
+      </section>
+        
+      <section class="section projects-section">
+        <h2 class="section-title"><i class="fa fa-archive"></i>Проекты</h2>
+        <div class="intro">
+          На данный момент моё портфолио состоит из программ выполненных в рамках обучения.         
+        </div>
+        <div class="item">
+          <span class="project-title"><a href="https://scratch.mit.edu/projects/727171613/" target="_blank">8_bit_translator_ASCII</a></span> - 
+          <span class="project-tagline">Программа для преобразования бинарного кода в ASCII.<br>
+            Откройте для себя битовые шаблоны для ASCII и многое другое.<br>
+            Нумерация битов справа налево.<br>
+            Пример 0:<br>
+            Включите 1-й и 7-й биты, переключите 6-й бит и сравните результат. Найдите другие буквы алфавита, переключаясь с 1-го на 5-й бит.<br>
+            Пример 1:<br>
+            Включите 5-й и 6-й биты и переключением с 1-го на 4-й бит найти числа от 0-9
+          </span>
+        </div>
+      </section>
+
+      <section class="section code_lang">
+        <h2 class="section-title"><i class="fa fa-code"></i>Навыки</h2>        
+        <div class="item">
+          <div class="details">
+            <ul>
+              <li>Scratch</li>
+              <li>C</li>
+              <li>SQL</li>
+              <li>HTML</li>
+              <li>CSS</li>
+              <li>Git</li>
+              <li>Python</li>
+              <li>Django</li>
+            <ul/>              
+          </div>
+        </div>            
+      </section>
+        
+      <section class="skills-section section">
+        <h2 class="section-title"><i class="fa fa-rocket"></i>Прогресс обучения</h2>
+        <div class="skillset">        
+          <div class="item">
+            <h3 class="level-title">Яндекс.Практикум<br>"Phython-разработчик"</h3>
+            <div class="level-bar">
+              <div class="level-bar-inner" data-level="50%">
+              </div>                                      
+            </div>                               
+          </div>                
+          <div class="item">
+            <h3 class="level-title">edX Harvard<br>"CS50's Introduction to Computer Science"</h3>
+            <div class="level-bar">
+              <div class="level-bar-inner" data-level="45%">
+              </div>                                      
+            </div>                                
+          </div>
+          <div class="item">
+            <h3 class="level-title">СОЛО на клавиатуре<br>"Английский курс"</h3>
+              <div class="level-bar">
+                <div class="level-bar-inner" data-level="21%">
+                </div>                                      
+              </div>                                
+          </div>
+        </div>  
+      </section>       
+    </div>
+    
+  </div>       
+  <script type="text/javascript" src="{% static 'author/jquery-1.11.3.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'author/bootstrap.min.js' %}"></script>    
+  <script type="text/javascript" src="{% static 'author/main.js' %}"></script>
+{% endblock %}

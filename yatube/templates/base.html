@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    {% include 'includes/head.html' %}
+    {% block head_author %}{% endblock %}
+    <title>{% block tab_title %}YaTube{% endblock %}</title>
+  </head>
+  <body>
+    {% include 'includes/header.html' %}      
+    <main>
+      <div class="container py-5">
+        <h1>
+        {% block title %}
+          YaTube
+        {% endblock %}
+        </h1>
+        {% block content %}
+          Контент не подвезли :(
+        {% endblock %}
+      </div>
+    </main>
+    {% include 'includes/footer.html' %}
+  </body>
+</h

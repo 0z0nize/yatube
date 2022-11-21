@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Технологии{% endblock %}
+{% block content %}
+  <article>
+    <div class="card col-4">
+      <h5 class="card-header">Вот что я умею</h5>  
+      <div class="card-body">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            Scratch
+          </li>
+          <li class="list-group-item">
+            C
+          </li>
+          <li class="list-group-item">
+            Python
+          </li>
+          <li class="list-group-item">
+            GitHub
+          </li>
+          <li class="list-group-item">
+            SQL
+          </li>
+          <li class="list-group-item">
+            Django
+          </li>
+        </ul>
+        <hr>
+        <a href="{% url 'about:author' %}" class="btn btn-primary">Ещё</a>
+      </div>
+    </div>
+  </article>
+{% endblock %}
+

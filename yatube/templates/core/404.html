@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block tab_title %}
+  404
+{% endblock %}
+{% block title %}
+  Custom 404
+{% endblock %}
+{% block content %}
+  <p>Страницы с адресом {{ path }} не существует</p>
+  <a href="{% url 'posts:index' %}">Идите на главную</a>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+{% block title %}
+  Последние обновления на сайте
+{% endblock %}
+{% block content %}
+{% include 'includes/switcher.html' %}
+  {% for post in page_obj %}
+    <p>{% include 'includes/post_card.html' with list=True %}</p>
+    {% if not forloop.last %}<hr>{% endif %}
+  {% endfor %}
+  {% include 'includes/paginator.html' %}
+{% endblock %}
