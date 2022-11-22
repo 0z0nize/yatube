@@ -3,7 +3,8 @@ import shutil
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import Client, TestCase, override_settings
 from django.urls import reverse
-from posts.models import Group, Post, User
+
+from posts.models import Comment, Group, Post, User
 
 from . import consts
 
@@ -133,25 +134,43 @@ class PostFormTests(TestCase):
         )
 
     def test_create_comment_authorized_client(self):
-        """Валидная форма создает запись в Post для авторизованного user."""
-        post_count = Post.objects.count()
-        post_data = {
-            'text': 'Баг text char15 Текст для тестирования!',
-            'group': PostFormTests.group.id,
+        """Комментировать посты может только авторизованный пользователь."""
+        comment_count = Comment.objects.count()
+        comment_data = {
+            'text': 'Коммент для тестирования!',
         }
         response = self.authorized_client.post(
-            reverse('posts:post_create'),
-            data=post_data,
+            reverse('posts:add_comment', kwargs={'post_id':self.post.id}),
+            data=comment_data,
             follow=True
         )
         self.assertRedirects(
-            response, reverse('posts:profile', kwargs={'username': self.user})
+            response, reverse(
+                'posts:post_detail', kwargs={'post_id':self.post.id}
+            )
         )
-        self.assertEqual(Post.objects.count(), post_count + consts.SHIFT)
+        guest_response = self.guest_client.post(
+            reverse('posts:add_comment', kwargs={'post_id':self.post.id}),
+            data=comment_data,
+            follow=True
+        )
+        self.assertRedirects(
+            guest_response, reverse('users:login')
+            + f'?next=/posts/{self.post.id}/comment/'
+        )
+        self.assertEqual(Comment.objects.count(), comment_count + consts.SHIFT)
         self.assertTrue(
-            Post.objects.filter(
-                id=self.post.id,
-                text=self.post.text,
-                image=self.post.image,
+            Comment.objects.filter(
+                text=comment_data['text']
             ).exists()
+        )
+        comment = Comment.objects.get(
+                text=comment_data['text'])
+        response = self.authorized_client.get(
+            reverse('posts:post_detail', kwargs={'post_id':self.post.id})
+        )
+        self.assertIn(
+            comment,
+            response.context['comments'],
+            'После успешной отправки комментарий появляется на странице поста.'
         )
