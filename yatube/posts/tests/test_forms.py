@@ -3,7 +3,6 @@ import shutil
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import Client, TestCase, override_settings
 from django.urls import reverse
-
 from posts.models import Comment, Group, Post, User
 
 from . import consts
@@ -140,17 +139,17 @@ class PostFormTests(TestCase):
             'text': 'Коммент для тестирования!',
         }
         response = self.authorized_client.post(
-            reverse('posts:add_comment', kwargs={'post_id':self.post.id}),
+            reverse('posts:add_comment', kwargs={'post_id': self.post.id}),
             data=comment_data,
             follow=True
         )
         self.assertRedirects(
             response, reverse(
-                'posts:post_detail', kwargs={'post_id':self.post.id}
+                'posts:post_detail', kwargs={'post_id': self.post.id}
             )
         )
         guest_response = self.guest_client.post(
-            reverse('posts:add_comment', kwargs={'post_id':self.post.id}),
+            reverse('posts:add_comment', kwargs={'post_id': self.post.id}),
             data=comment_data,
             follow=True
         )
@@ -164,10 +163,9 @@ class PostFormTests(TestCase):
                 text=comment_data['text']
             ).exists()
         )
-        comment = Comment.objects.get(
-                text=comment_data['text'])
+        comment = Comment.objects.get(text=comment_data['text'])
         response = self.authorized_client.get(
-            reverse('posts:post_detail', kwargs={'post_id':self.post.id})
+            reverse('posts:post_detail', kwargs={'post_id': self.post.id})
         )
         self.assertIn(
             comment,
