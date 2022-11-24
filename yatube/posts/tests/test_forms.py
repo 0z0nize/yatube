@@ -1,5 +1,6 @@
 import shutil
 
+from django.core.cache import cache
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import Client, TestCase, override_settings
 from django.urls import reverse
@@ -13,7 +14,8 @@ class PostFormTests(TestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        small_gif = (
+        cache.clear()
+        cls.small_gif = (
             b'\x47\x49\x46\x38\x39\x61\x02\x00'
             b'\x01\x00\x80\x00\x00\x00\x00\x00'
             b'\xFF\xFF\xFF\x21\xF9\x04\x00\x00'
@@ -21,9 +23,9 @@ class PostFormTests(TestCase):
             b'\x02\x00\x01\x00\x00\x02\x02\x0C'
             b'\x0A\x00\x3B'
         )
-        uploaded = SimpleUploadedFile(
+        cls.uploaded = SimpleUploadedFile(
             name='small.gif',
-            content=small_gif,
+            content=cls.small_gif,
             content_type='image/gif'
         )
         cls.user = User.objects.create_user(username='Buggy_NaMe')
@@ -36,8 +38,11 @@ class PostFormTests(TestCase):
             author=cls.user,
             text='Баг text char15 Видишь это - ищи ошибку!',
             group=cls.group,
-            image=uploaded,
+            image=cls.uploaded,
         )
+        cls.comment_data = {
+            'text': 'Коммент для тестирования!',
+        }
 
     @classmethod
     def tearDownClass(cls):
@@ -135,12 +140,9 @@ class PostFormTests(TestCase):
     def test_create_comment_authorized_client(self):
         """Комментировать посты может только авторизованный пользователь."""
         comment_count = Comment.objects.count()
-        comment_data = {
-            'text': 'Коммент для тестирования!',
-        }
         response = self.authorized_client.post(
             reverse('posts:add_comment', kwargs={'post_id': self.post.id}),
-            data=comment_data,
+            data=self.comment_data,
             follow=True
         )
         self.assertRedirects(
@@ -148,22 +150,13 @@ class PostFormTests(TestCase):
                 'posts:post_detail', kwargs={'post_id': self.post.id}
             )
         )
-        guest_response = self.guest_client.post(
-            reverse('posts:add_comment', kwargs={'post_id': self.post.id}),
-            data=comment_data,
-            follow=True
-        )
-        self.assertRedirects(
-            guest_response, reverse('users:login')
-            + f'?next=/posts/{self.post.id}/comment/'
-        )
         self.assertEqual(Comment.objects.count(), comment_count + consts.SHIFT)
         self.assertTrue(
             Comment.objects.filter(
-                text=comment_data['text']
+                text=self.comment_data['text']
             ).exists()
         )
-        comment = Comment.objects.get(text=comment_data['text'])
+        comment = Comment.objects.get(text=self.comment_data['text'])
         response = self.authorized_client.get(
             reverse('posts:post_detail', kwargs={'post_id': self.post.id})
         )
@@ -171,4 +164,16 @@ class PostFormTests(TestCase):
             comment,
             response.context['comments'],
             'После успешной отправки комментарий появляется на странице поста.'
+        )
+
+    def test_guest_client_can_not_create_comment(self):
+        """Гость не может комментировать посты."""
+        guest_response = self.guest_client.post(
+            reverse('posts:add_comment', kwargs={'post_id': self.post.id}),
+            data=self.comment_data,
+            follow=True
+        )
+        self.assertRedirects(
+            guest_response, reverse('users:login')
+            + f'?next=/posts/{self.post.id}/comment/'
         )

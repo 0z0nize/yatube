@@ -1,4 +1,5 @@
 import shutil
+from itertools import islice
 from time import sleep
 
 from django import forms
@@ -17,6 +18,7 @@ class PostViewTests(TestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cache.clear()
         small_gif = (
             b'\x47\x49\x46\x38\x39\x61\x02\x00'
             b'\x01\x00\x80\x00\x00\x00\x00\x00'
@@ -25,7 +27,7 @@ class PostViewTests(TestCase):
             b'\x02\x00\x01\x00\x00\x02\x02\x0C'
             b'\x0A\x00\x3B'
         )
-        uploaded = SimpleUploadedFile(
+        cls.uploaded = SimpleUploadedFile(
             name='small.gif',
             content=small_gif,
             content_type='image/gif'
@@ -52,7 +54,7 @@ class PostViewTests(TestCase):
             author=cls.user,
             text='Баг text char15 Видишь это - ищи ошибку!',
             group=cls.group,
-            image=uploaded,
+            image=cls.uploaded,
         )
 
     @classmethod
@@ -242,6 +244,31 @@ class PostViewTests(TestCase):
         )
         self.assertNotIn(post, response_t.context['page_obj'].object_list)
 
+    def test_image_apears_in_selected_pages(self):
+        """При выводе поста с картинкой изображение передаётся в словаре
+        context: на главную страницу, на страницу профайла, на страницу группы,
+        на отдельную страницу поста."""
+        response = self.authorized_client.get(
+            reverse('posts:post_detail', kwargs={'post_id': self.post.id})
+        )
+        self.assertEqual(self.post.image, response.context['post'].image)
+        response = self.authorized_client.get(reverse('posts:index'))
+        self.assertEqual(
+            self.post.image, response.context['page_obj'][consts.ZERO].image
+        )
+        response = self.authorized_client.get(
+            reverse('posts:profile', kwargs={'username': self.user})
+        )
+        self.assertEqual(
+            self.post.image, response.context['page_obj'][consts.ZERO].image
+        )
+        response = self.authorized_client.get(
+            reverse('posts:group_list', kwargs={'slug': self.group.slug})
+        )
+        self.assertEqual(
+            self.post.image, response.context['page_obj'][consts.ZERO].image
+        )
+
 
 class PaginatorViewsTest(TestCase):
     @classmethod
@@ -253,19 +280,23 @@ class PaginatorViewsTest(TestCase):
             slug='Bug-slug',
             description='Группа любителей багов',
         )
-        for test_n in range(consts.POSTS_FOR_TEST):
-            cls.post = Post.objects.create(
-                author=cls.user,
-                text=f'Баг текс char15 № {test_n} Видишь это - ищи ошибку!',
-                group=cls.group,
-            )
+        cls.post = (Post(
+            author=cls.user,
+            group=cls.group,
+            text='Баг текс char15 № %s Видишь это - ищи ошибку!' % i
+        ) for i in range(consts.POSTS_FOR_TEST))
+        while True:
+            batch = list(islice(cls.post, settings.POST_IN_PAGE))
+            if not batch:
+                break
+            Post.objects.bulk_create(batch, settings.POST_IN_PAGE)
 
     def setUp(self):
         self.authorized_client = Client()
 
     def test_paginator(self):
         """Тест, для проверки пэджинатора."""
-        pages = (consts.POSTS_FOR_TEST // settings.POST_IN_PAGE)
+        pages = consts.POSTS_FOR_TEST // settings.POST_IN_PAGE
         last_page = consts.POSTS_FOR_TEST % settings.POST_IN_PAGE
 
         list_pages = [
