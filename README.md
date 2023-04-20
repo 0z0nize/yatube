@@ -8,7 +8,7 @@
 ## Инструкции по установке
 ***- Клонируйте репозиторий:***
 ```
-git clone git@github.com:PashkaVRN/hw05_final.git
+git clone git@github.com:0z0nize/yatube.git
 ```
 
 ***- Установите и активируйте виртуальное окружение:***
