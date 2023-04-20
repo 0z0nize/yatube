@@ -1,4 +1,5 @@
-![toppng com-social-media-marketing-social-media-manager-jaclyn-social-media-manager-transparent-1024x329](https://user-images.githubusercontent.com/112638163/233350302-6c726872-b432-4c6c-baf2-b3eced85e718.png)
+![social](https://user-images.githubusercontent.com/112638163/233350906-a5eaa239-f73e-4ae6-84d4-10a873f6b3b0.png)
+
 # Соцсеть Yatube
 
 Социальная сеть блогеров. Повзоляет написание постов и публикации их в отдельных группах, подписки на посты, добавление и удаление записей и их комментирование.
