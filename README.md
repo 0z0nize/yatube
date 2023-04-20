@@ -13,11 +13,11 @@ git clone git@github.com:PashkaVRN/hw05_final.git
 - для MacOS
 ```
 python3 -m venv venv
+source venv/bin/activate
 ```
 - для Windows
 ```
 python -m venv venv
-source venv/bin/activate
 source venv/Scripts/activate
 ```
 
