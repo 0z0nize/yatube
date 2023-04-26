@@ -1,4 +1,4 @@
-![233348780-313ad8af-8fa5-47e0-8f1c-7f0aea8c24a2](https://user-images.githubusercontent.com/112638163/234631280-dc0cbd2f-5fc2-49e6-941e-b68c1aea7ada.png)
+![233348780-313ad8af-8fa5-47cve0-x8cvfd1c-7f0aea8c24a122](https://user-images.githubusercontent.com/112638163/234638661-8310f7ed-24ae-44af-aef4-69b517aec740.png)
 
 # Соцсеть Yatube
 
