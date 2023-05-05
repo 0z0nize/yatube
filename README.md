@@ -46,4 +46,3 @@ python manage.py runserver
 
 ### Автор проекта:
 #### [_Владислав Шкаровский_](https://github.com/0z0nize)
-
