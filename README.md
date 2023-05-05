@@ -8,7 +8,7 @@
 ### Технологии
 ![python version](https://img.shields.io/badge/Python-3.9.10-yellowgreen?logo=python)
 ![django version](https://img.shields.io/badge/Django-3.2.16-yellowgreen?logo=django)
-![Pillow version](https://img.shields.io/badge/djangorestframework-8.3.1-yellowgreen?logo=Pillow)
+![Pillow version](https://img.shields.io/badge/Pillow-8.3.1-yellowgreen?logo=pillow)
 ![pytest version](https://img.shields.io/badge/pytest-6.2.4-yellowgreen?logo=pytest)
 ![requests version](https://img.shields.io/badge/requests-2.26.0-yellowgreen)
 
