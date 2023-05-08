@@ -1,4 +1,4 @@
-![233348780-313ad8af-8fa5-47cve0-x8cvfd1c-7f0aea8c24a122](https://user-images.githubusercontent.com/112638163/234638661-8310f7ed-24ae-44af-aef4-69b517aec740.png)
+![YaTube](https://user-images.githubusercontent.com/112638163/236887415-4dbb26a5-a0c8-4571-b8b3-ddd393f0bc7f.png)
 
 ### Описание
 Социальная сеть блогеров YaTube - позволяет писать и публиковать посты в отдельных группах, добавлять и удалять записи и подписываться на любимых блогеров.
